@@ -42,10 +42,21 @@ public class NameSorter {
 
     public static void main(String[] args) {
 
-            List<String> namesList = loadFile(args[0]);
-            namesList = sorter(namesList);
-            namesList.stream().forEach(System.out::println);
-            writeFile(namesList,"sorted-names-list.txt");
+        if (args.length == 0) {
+            System.out.println("Please provide the input file path.");
+            return;
+        }
+
+        List<String> namesList = loadFile(args[0]);
+
+        if (namesList == null) {
+            System.out.println("Failed to load the input file.");
+            return;
+        }
+
+        namesList = sorter(namesList);
+        namesList.stream().forEach(System.out::println);
+        writeFile(namesList,"sorted-names-list.txt");
 
 
 

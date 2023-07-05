@@ -105,11 +105,10 @@ public class NameSorterTest {
 
     @Test
     public void testWriteFile_GivenWrongPath() throws IOException {
+
         NameSorter.writeFile(listSampleSorted,"F:");
 
-        //List<String> read = Files.readAllLines(Path.of("sorted-names-list.txt"));
 
-        //assertNotNull(listSampleSorted);
     }
 
     @Test
