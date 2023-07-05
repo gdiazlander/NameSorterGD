@@ -48,19 +48,9 @@ public class NameSorter {
         }
 
         List<String> namesList = loadFile(args[0]);
-
-        if (namesList == null) {
-            System.out.println("Failed to load the input file.");
-            return;
-        }
-
         namesList = sorter(namesList);
         namesList.stream().forEach(System.out::println);
         writeFile(namesList,"sorted-names-list.txt");
-
-
-
-
 
     }
 }

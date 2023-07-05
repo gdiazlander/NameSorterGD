@@ -1,9 +1,13 @@
 package com.personal.gd;
 
+import org.junit.Rule;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.rules.ExpectedException;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -12,9 +16,11 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class NameSorterTest {
-    List<String> listSample;
-    List <String> listSampleSorted;
-
+    private List<String> listSample;
+    private List <String> listSampleSorted;
+    private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+    @Rule
+    public final ExpectedException exception = ExpectedException.none();
     @BeforeEach
     public void loadTestValue(){
 
@@ -44,7 +50,7 @@ public class NameSorterTest {
         listSampleSorted.add("Frankie Conner Ritter");
         listSampleSorted.add("Shelby Nathan Yoder");
 
-
+        System.setOut(new PrintStream(outputStreamCaptor));
 
     }
 
@@ -108,14 +114,23 @@ public class NameSorterTest {
 
         NameSorter.writeFile(listSampleSorted,"F:");
 
-
     }
 
     @Test
     public void testNameSorter_GivingCorrectInput() throws IOException {
         String[] args = {"unsorted-names-list.txt"};
         NameSorter.main(args);
-
+        assertNotNull(outputStreamCaptor.toString()
+                .trim());
     }
+
+    @Test
+    public void testNameSorter_GivingNoInput() throws IOException {
+        String[] args = new String[]{};
+        NameSorter.main(args);
+        assertEquals("Please provide the input file path.",outputStreamCaptor.toString()
+                .trim());
+    }
+
 
 }
