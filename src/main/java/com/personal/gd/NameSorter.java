@@ -42,7 +42,7 @@ public class NameSorter {
 
     public static void main(String[] args) {
 
-            List<String> namesList = loadFile("unsorted-names-list.txt");
+            List<String> namesList = loadFile(args[0]);
             namesList = sorter(namesList);
             namesList.stream().forEach(System.out::println);
             writeFile(namesList,"sorted-names-list.txt");
